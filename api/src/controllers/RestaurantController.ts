@@ -36,8 +36,8 @@ export class RestaurantController {
   @Post('')
   private async post(req: Request, res: Response) {
     try {
-      Restaurant.create(req.body);
-      return res.sendStatus(200).json(res.json);
+      const restaurant = await Restaurant.create(req.body);
+      return res.status(200).json(restaurant);
     } catch(err) {
       console.log(err);
       return res.status(500).send(`Unable to create restaurant: ${err.message}`);

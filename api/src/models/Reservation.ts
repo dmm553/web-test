@@ -30,6 +30,8 @@ import { Restaurant } from '.'
     id: number
 
     @ForeignKey(() => Restaurant)
+    @NotNull
+    @AllowNull(false)
     @Column
     restaurant_id: number
 
@@ -60,7 +62,7 @@ import { Restaurant } from '.'
     @IsDate
     @ReservationIndex
     @Column
-    datetime: Date
+    date_time: Date
   
     @DeletedAt
     deleted_at: string
