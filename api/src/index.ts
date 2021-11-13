@@ -3,7 +3,7 @@ import { Sequelize } from 'sequelize-typescript'
 import { RouterServer } from './RouterServer'
 import * as models from './models'
 
-;(async () => {
+(async () => {
   new RouterServer().start(8080)
 
   const sequelize = new Sequelize(process.env.DATABASE_CONNECTION_STRING, {
