@@ -1,6 +1,6 @@
 import { Controller, Get, Post } from '@overnightjs/core'
 import { Request, Response } from 'express'
-import { getAll, getById, createNewInventory } from '../services/InventoryService';
+import { inventoryService } from '../services/InventoryService';
 import { isEmpty } from 'lodash';
 
 @Controller('inventory')
@@ -8,7 +8,7 @@ export class InventoryController {
   @Get('')
   private async get(req: Request, res: Response) {
     try {
-      const inventories = await getAll();
+      const inventories = await inventoryService.getAll();
       if(isEmpty(inventories)) {
         return res.status(404).send('No inventories found');
       }
@@ -22,7 +22,7 @@ export class InventoryController {
   private async getById(req: Request, res: Response) {
     try {
       const { id } = req.params as unknown as { id: number };
-      const inventories = await getById(id);
+      const inventories = await inventoryService.getById(id);
       if(isEmpty(inventories)) {
         return res.status(404).send(`Inventory ${id} not found`);
       }
@@ -35,7 +35,7 @@ export class InventoryController {
   @Post('')
   private async post(req: Request, res: Response) {
     try {
-      const inventory = await createNewInventory(req.body);
+      const inventory = await inventoryService.createNewInventory(req.body);
       return res.status(200).json(inventory);
     } catch(err) {
       return res.status(500).send(err.message);
