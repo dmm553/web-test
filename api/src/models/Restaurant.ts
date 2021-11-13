@@ -1,6 +1,7 @@
 import {
   Column,
   CreatedAt,
+  createIndexDecorator,
   DeletedAt,
   HasMany,
   Model,
@@ -9,15 +10,25 @@ import {
 } from 'sequelize-typescript'
 import { Inventory, Reservation } from '.'
 
+const RestaurantIndex = createIndexDecorator({
+  name: 'restaurant-index',
+  parser: 'my-parser',
+  type: 'UNIQUE',
+  unique: true,
+  using: 'BTREE',
+})
+
 @Table({ tableName: 'restaurants' })
 export class Restaurant extends Model<Restaurant> {
   @PrimaryKey
   @Column({ autoIncrement: true })
   id: number
 
+  @RestaurantIndex
   @Column
   name: string
 
+  @RestaurantIndex
   @Column
   address: string
 
