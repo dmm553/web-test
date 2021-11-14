@@ -14,7 +14,7 @@
  * @param {object} params
  * @param {number} params.restaurant_id
  * @param {number} params.party_size
- * @param {number} params.date_time
+ * @param {string} params.date_time
  * @param {number} params.max_reservations
  * @returns {Entity.Inventory}
  */

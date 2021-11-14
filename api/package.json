@@ -16,6 +16,7 @@
     "@types/validator": "13.6.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "date-fns": "^2.25.0",
     "jest": "^26.0.1",
     "lodash": "4.17.21",
     "morgan": "^1.10.0",

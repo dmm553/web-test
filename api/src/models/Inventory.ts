@@ -23,10 +23,6 @@ import {
     using: 'BTREE',
   })
   
-  /**
-   * @type Inventory
-   * @property {number} restaurant_id - ID of the restaurant associated to this inventory.
-   */
   @Table({ tableName: 'inventory' })
   export class Inventory extends Model<Inventory> {
     @PrimaryKey
