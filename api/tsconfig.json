@@ -16,9 +16,9 @@
     "sourceMap": true,
     "module": "CommonJS",
     "lib": ["esnext"],
-    "types": ["node", "jest"],
+    "types": ["node", "jest", "lodash"],
     "outDir": "./dist"
   },
   "exclude": ["node_modules"],
-    "include": ["./src"],
+  "include": ["./src"],
 }

@@ -1,15 +1,8 @@
 import { Reservation } from '../models';
 import { inventoryService } from './InventoryService';
-import { Reservation as ReservationEntity } from '../entity/Reservation'
+import { Reservation as ReservationEntity } from '../entity/Reservation';
+import { ReservationRequest } from '../types/ReservationRequest';
 import { isEmpty } from 'lodash';
-
-type ReservationRequest = {
-  restaurantId: number,
-  name: string,
-  email: string,
-  partySize: number,
-  dateTime: string
-};
 
 export class ReservationService {
   getAll = async () => {

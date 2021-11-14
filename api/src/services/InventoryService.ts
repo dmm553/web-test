@@ -1,18 +1,9 @@
-import { add, eachDayOfInterval, eachMinuteOfInterval } from 'date-fns'
+import { add, eachDayOfInterval, eachMinuteOfInterval } from 'date-fns';
 import { Inventory } from '../models';
-import { Inventory as InventoryEntity } from '../entity/Inventory'
+import { Inventory as InventoryEntity } from '../entity/Inventory';
+import { InventoryRequest } from '../types/InventoryRequest';
 
 const RESERVATION_INCREMENT = 15;
-
-type InventoryRequest = {
-  startDate: string,
-  endDate: string,
-  startTime: string,
-  endTime: string,
-  restaurantId: number,
-  partySize: number,
-  maxReservations: number,
-};
 
 export class InventoryService {
   getAll = async () => {
@@ -23,7 +14,7 @@ export class InventoryService {
       console.log(err);
       throw new Error('Unable to retrieve inventories');
     }
-  }
+  };
 
   getById = async (id:number) => {
     try {
@@ -33,7 +24,7 @@ export class InventoryService {
       console.log(err);
       throw new Error('Unable to retrieve inventories');
     }
-  }
+  };
 
   getByRestaurantIDPartySizeDateTime = async (restaurantId:number, partySize:number, dateTime:string) => {
     try {
