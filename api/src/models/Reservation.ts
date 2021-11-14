@@ -1,5 +1,6 @@
 import {
     AllowNull,
+    BeforeCreate,
     BelongsTo,
     Column,
     CreatedAt,

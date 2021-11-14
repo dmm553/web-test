@@ -35,6 +35,26 @@ export class InventoryService {
     }
   }
 
+  getByRestaurantIDPartySizeDateTime = async (restaurantId:number, partySize:number, dateTime:string) => {
+    try {
+      const inventory = await Inventory.findOne({ where: { restaurant_id: restaurantId, party_size: partySize, date_time: dateTime } });
+      return inventory;
+    } catch(err) {
+      console.log(err);
+      throw new Error('Unable to retrieve inventories');
+    }
+  }
+
+  updateAvailableInventory = async (restaurantId:number, partySize:number, dateTime:string) => {
+    try {
+      const inventory = await Inventory.increment('available_reservations', { by: -1, where: { restaurant_id: restaurantId, party_size: partySize, date_time: dateTime } });
+      return inventory;
+    } catch(err) {
+      console.log(err);
+      throw new Error('Unable to update inventory');
+    }
+  }
+
   createNewInventory = async (inventoryRequest:InventoryRequest) => {
     try {
       const {
