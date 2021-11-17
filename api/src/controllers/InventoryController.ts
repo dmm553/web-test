@@ -22,6 +22,7 @@ export class InventoryController {
   private async getById(req: Request, res: Response) {
     try {
       const { id } = req.params as unknown as { id: number };
+      if(isNaN(id)) throw new Error(`Invalid id ${id}`);
       const inventories = await inventoryService.getById(id);
       if(isEmpty(inventories)) {
         return res.status(404).send(`Inventory ${id} not found`);

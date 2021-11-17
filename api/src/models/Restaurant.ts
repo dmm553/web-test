@@ -41,9 +41,9 @@ export class Restaurant extends Model<Restaurant> {
   @UpdatedAt
   updated_at: string
 
-  @HasMany(() => Inventory)
+  @HasMany(() => Inventory, 'restaurant_id')
   inventories: Inventory[]
 
-  @HasMany(() => Reservation)
+  @HasMany(() => Reservation, 'restaurant_id')
   reservations: Reservation[]
 }

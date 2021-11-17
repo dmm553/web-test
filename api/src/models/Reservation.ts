@@ -36,7 +36,7 @@ import { Restaurant } from '.'
     @Column
     restaurant_id: number
 
-    @BelongsTo(() => Restaurant, 'id')
+    @BelongsTo(() => Restaurant, 'restaurant_id')
     restaurant: Restaurant
   
     @NotNull

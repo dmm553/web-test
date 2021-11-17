@@ -1,4 +1,8 @@
-import { add, eachDayOfInterval, eachMinuteOfInterval } from 'date-fns';
+import {
+  add,
+  eachDayOfInterval,
+  eachMinuteOfInterval,
+  isEqual } from 'date-fns';
 import { Inventory } from '../models';
 import { Inventory as InventoryEntity } from '../entity/Inventory';
 import { InventoryRequest } from '../types/InventoryRequest';
@@ -11,7 +15,6 @@ export class InventoryService {
       const inventories = await Inventory.findAll();
       return inventories;
     } catch(err) {
-      console.log(err);
       throw new Error('Unable to retrieve inventories');
     }
   };
@@ -21,7 +24,6 @@ export class InventoryService {
       const inventories = await Inventory.findByPk(id);
       return inventories;
     } catch(err) {
-      console.log(err);
       throw new Error('Unable to retrieve inventories');
     }
   };
@@ -31,7 +33,6 @@ export class InventoryService {
       const inventory = await Inventory.findOne({ where: { restaurant_id: restaurantId, party_size: partySize, date_time: dateTime } });
       return inventory;
     } catch(err) {
-      console.log(err);
       throw new Error('Unable to retrieve inventories');
     }
   }
@@ -41,7 +42,6 @@ export class InventoryService {
       const inventory = await Inventory.increment('available_reservations', { by: -1, where: { restaurant_id: restaurantId, party_size: partySize, date_time: dateTime } });
       return inventory;
     } catch(err) {
-      console.log(err);
       throw new Error('Unable to update inventory');
     }
   }
@@ -90,18 +90,24 @@ export class InventoryService {
         const startDateTime = add(new Date(date), { 
           hours: startHour, minutes: startMinute
         });
+
+        const endDateTime = add(new Date(date), { 
+          hours: endHour, minutes: endMinute 
+        });
+
+        let minuteInterval;
         
-        const minuteInterval = eachMinuteOfInterval({
-          start: startDateTime, 
-          end: add(new Date(date), 
-            { 
-              hours: endHour, 
-              minutes: endMinute 
-            }
-            )}, 
-            {
-              step: RESERVATION_INCREMENT
-            });
+        if(isEqual(startDateTime, endDateTime)) {
+          minuteInterval = [startDateTime];
+        } else {
+          minuteInterval = eachMinuteOfInterval({
+            start: startDateTime, 
+            end: endDateTime
+          }, 
+          {
+            step: RESERVATION_INCREMENT
+          });
+        }
         
         for(const dateTime of minuteInterval) {
           const inventoryEntity = InventoryEntity({
@@ -118,7 +124,6 @@ export class InventoryService {
 
       return inventoryResult;
     } catch(err) {
-      console.log(err);
       throw new Error(`Unable to create inventory: ${err.message}`)
     }
   }

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "yarn tsc-watch --onSuccess \"yarn node ./dist/index.js\"",
-    "test": "export DATABASE_CONNECTION_STRING=postgres://postgres:password@db/wisely_test && yarn jest --runInBand --config=jest.config.js",
+    "test": "export DATABASE_CONNECTION_STRING=postgres://postgres:password@db/wisely_test && yarn jest --runInBand --detectOpenHandles --config=jest.config.js",
     "build": "rm -rf dist && yarn tsc",
     "start": "node ./dist/start.js"
   },
